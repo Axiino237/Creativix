@@ -76,6 +76,21 @@ const Footer = () => {
             </a>
           </div>
         </div>
+
+        {/* Developer Credit */}
+        <div className="mt-6 text-center">
+          <p className="text-muted-foreground/60 text-xs">
+            Developed by{" "}
+            <a
+              href="https://axiino.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary/80 hover:text-primary hover:underline transition-all duration-300"
+            >
+              Axiino
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
