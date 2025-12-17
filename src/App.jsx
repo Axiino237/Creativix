@@ -3,10 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AnimatedBackground from "./components/AnimatedBackground";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import ChatBot from "./components/ChatBot";
+import Layout from "@/components/layout/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -22,9 +19,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <AnimatedBackground />
-        <Navbar />
-        <main className="min-h-screen">
+        <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -33,9 +28,7 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </main>
-        <Footer />
-        <ChatBot />
+        </Layout>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

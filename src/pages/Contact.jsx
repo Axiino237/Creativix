@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Section from "@/components/Section";
-import SvgIcon from "@/components/SvgIcon";
+import Section from "@/components/common/Section";
+import SvgIcon from "@/components/common/SvgIcon";
 
 const Contact = () => {
   const [formState, setFormState] = useState({
@@ -11,13 +11,13 @@ const Contact = () => {
     subject: "",
     message: "",
   });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState("idle");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("loading");
     

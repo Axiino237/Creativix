@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Section from "@/components/Section";
-import SvgIcon from "@/components/SvgIcon";
+import Section from "@/components/common/Section";
+import SvgIcon from "@/components/common/SvgIcon";
 
 const About = () => {
   const values = [

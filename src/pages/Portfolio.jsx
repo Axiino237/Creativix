@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Section from "@/components/Section";
+import Section from "@/components/common/Section";
 
 const Portfolio = () => {
   const categories = ["All", "Branding", "Social Media", "Print Design", "Logo Design"];

@@ -1,11 +1,5 @@
-interface SvgIconProps {
-  name: string;
-  className?: string;
-  size?: number;
-}
-
-const SvgIcon = ({ name, className = "", size = 48 }: SvgIconProps) => {
-  const icons: Record<string, JSX.Element> = {
+const SvgIcon = ({ name, className = "", size = 48 }) => {
+  const icons = {
     design: (
       <svg viewBox="0 0 64 64" fill="none" className={className} width={size} height={size}>
         <rect x="8" y="8" width="48" height="48" rx="4" stroke="currentColor" strokeWidth="2" />

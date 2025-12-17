@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import SvgIcon from "./SvgIcon";
+import SvgIcon from "@/components/common/SvgIcon";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
