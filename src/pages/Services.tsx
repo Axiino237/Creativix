@@ -1,81 +1,80 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Globe, Palette, Code, Pen, Printer, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Section from "@/components/Section";
-import SvgIcon from "@/components/SvgIcon";
 
 const Services = () => {
   const services = [
     {
-      icon: "design",
+      icon: Globe,
+      title: "Digital Marketing",
+      description: "Marketing your business in the online world is as crucial as your product or service itself.",
+      subServices: [
+        "Search Engine Optimization",
+        "Search Engine Marketing",
+        "Social Media Marketing",
+        "Influencer Marketing",
+        "Performance Marketing",
+      ],
+    },
+    {
+      icon: Palette,
       title: "Graphic Design",
-      description: "Eye-catching visuals that communicate your message with clarity and impact.",
-      features: [
-        "Custom illustrations",
-        "Marketing collateral",
-        "Presentation design",
-        "Infographics",
-        "Digital assets",
+      description: "An engrossing design is a gateway to communicate your brand to your customers. We have completed design projects to our credit.",
+      subServices: [
+        "Logo",
+        "Brochure",
+        "Poster And Flex",
+        "Album Design",
+        "Product Design",
       ],
     },
     {
-      icon: "logo",
-      title: "Logo Design",
-      description: "Memorable logos that capture your brand's essence and stand the test of time.",
-      features: [
-        "Concept development",
-        "Multiple variations",
-        "Vector formats",
-        "Brand guidelines",
-        "Trademark support",
+      icon: Code,
+      title: "Website Design",
+      description: "An engaging website can retain your customer's attention and make your business grow.",
+      subServices: [
+        "E-commerce Website",
+        "Business Website",
+        "ERP Software",
+        "Travel Booking",
+        "Software Design",
       ],
     },
     {
-      icon: "branding",
-      title: "Branding",
-      description: "Complete brand identity systems that create cohesive, memorable experiences.",
-      features: [
-        "Brand strategy",
-        "Visual identity",
-        "Brand guidelines",
-        "Tone of voice",
-        "Brand applications",
+      icon: Pen,
+      title: "Content Writing",
+      description: "Stories have the potential to get into the hearts of your clients and captivate their interests.",
+      subServices: [
+        "Copywriting",
+        "Blogging",
+        "Social Media Posts",
+        "Video Production Scripts",
+        "Screen Writing",
       ],
     },
     {
-      icon: "social",
-      title: "Social Media Marketing",
-      description: "Strategic campaigns that engage your audience and grow your online presence.",
-      features: [
-        "Content strategy",
-        "Post design",
-        "Campaign management",
-        "Analytics & reporting",
-        "Community management",
+      icon: Printer,
+      title: "Printing",
+      description: "A physical reminder of your moments / your products is more enjoyable than mere pixels on a screen.",
+      subServices: [
+        "Surface Printing",
+        "Flexographic Printing",
+        "Screen Printing",
+        "Rotary Screen",
+        "Gravure Printing",
       ],
     },
     {
-      icon: "poster",
-      title: "Posters & Print Design",
-      description: "Stunning print materials that make a lasting impression offline.",
-      features: [
-        "Poster design",
-        "Flyers & brochures",
-        "Business cards",
-        "Packaging design",
-        "Event materials",
-      ],
-    },
-    {
-      icon: "analytics",
-      title: "Digital Advertising",
-      description: "Performance-driven ad creatives that convert viewers into customers.",
-      features: [
-        "Display ads",
-        "Social media ads",
-        "Banner design",
-        "A/B testing",
-        "Performance optimization",
+      icon: Camera,
+      title: "Photography",
+      description: "As cliché as it may sound, \"A picture speaks thousand words\", it is the undeniable truth.",
+      subServices: [
+        "Events",
+        "Marketing / Promotional",
+        "Corporate",
+        "Short Films",
+        "Product Shoot",
       ],
     },
   ];
@@ -104,32 +103,50 @@ const Services = () => {
       {/* Services Grid */}
       <Section>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <div
-              key={service.title}
-              className="group glass rounded-2xl p-8 hover:glow-primary transition-all duration-500 hover:-translate-y-2 animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="w-16 h-16 rounded-xl gradient-bg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <SvgIcon name={service.icon} size={40} className="text-foreground" />
+          {services.map((service, index) => {
+            const IconComponent = service.icon;
+            return (
+              <div
+                key={service.title}
+                className="group glass rounded-2xl p-8 hover:glow-primary transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] animate-fade-in-up relative overflow-hidden"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {/* Animated gradient background on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-secondary/0 group-hover:from-primary/10 group-hover:to-secondary/10 transition-all duration-500" />
+                
+                <div className="relative z-10">
+                  <div className="w-16 h-16 rounded-xl gradient-bg flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                    <IconComponent className="w-8 h-8 text-foreground" />
+                  </div>
+                  
+                  <h3 className="text-2xl font-display font-semibold mb-3 group-hover:gradient-text transition-all duration-300">
+                    {service.title}
+                  </h3>
+                  
+                  <p className="text-muted-foreground mb-6 leading-relaxed">{service.description}</p>
+                  
+                  {/* Sub-services with hover reveal animation */}
+                  <div className="space-y-0 overflow-hidden">
+                    <div className="text-xs uppercase tracking-wider text-primary font-semibold mb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                      Services Include:
+                    </div>
+                    <ul className="space-y-2">
+                      {service.subServices.map((subService, subIndex) => (
+                        <li
+                          key={subService}
+                          className="flex items-center gap-2 text-sm text-muted-foreground opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
+                          style={{ transitionDelay: `${150 + subIndex * 50}ms` }}
+                        >
+                          <Check className="w-4 h-4 text-primary flex-shrink-0" />
+                          <span>{subService}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
-              
-              <h3 className="text-2xl font-display font-semibold mb-3 group-hover:gradient-text transition-all duration-300">
-                {service.title}
-              </h3>
-              
-              <p className="text-muted-foreground mb-6">{service.description}</p>
-              
-              <ul className="space-y-2">
-                {service.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </Section>
 
