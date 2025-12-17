@@ -38,18 +38,21 @@ const Contact = () => {
       title: "Email Us",
       value: "hello@creativix.studio",
       description: "We'll respond within 24 hours",
+      link: "mailto:hello@creativix.studio",
     },
     {
-      icon: "message",
-      title: "Live Chat",
-      value: "Available 9am-6pm EST",
-      description: "Quick answers to quick questions",
+      icon: "phone",
+      title: "Call Us",
+      value: "+1 (555) 123-4567",
+      description: "Mon-Fri, 9am-6pm EST",
+      link: "tel:+15551234567",
     },
     {
       icon: "social",
       title: "Social Media",
       value: "@creativixstudio",
       description: "Follow us for inspiration",
+      link: null,
     },
   ];
 
@@ -77,20 +80,39 @@ const Contact = () => {
       {/* Contact Info Cards */}
       <Section className="py-8">
         <div className="grid md:grid-cols-3 gap-6">
-          {contactInfo.map((info, index) => (
-            <div
-              key={info.title}
-              className="glass rounded-2xl p-6 text-center animate-fade-in-up hover:glow-primary transition-all duration-500"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="w-14 h-14 rounded-xl gradient-bg flex items-center justify-center mx-auto mb-4">
-                <SvgIcon name={info.icon} size={32} className="text-foreground" />
+          {contactInfo.map((info, index) => {
+            const CardContent = (
+              <>
+                <div className="w-14 h-14 rounded-xl gradient-bg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <SvgIcon name={info.icon} size={32} className="text-foreground" />
+                </div>
+                <h3 className="font-display font-semibold text-lg mb-1">{info.title}</h3>
+                <p className="gradient-text font-medium mb-1">{info.value}</p>
+                <p className="text-muted-foreground text-sm">{info.description}</p>
+              </>
+            );
+
+            return info.link ? (
+              <a
+                key={info.title}
+                href={info.link}
+                target={info.link.startsWith("mailto") ? undefined : "_blank"}
+                rel={info.link.startsWith("mailto") ? undefined : "noopener noreferrer"}
+                className="group glass rounded-2xl p-6 text-center animate-fade-in-up hover:glow-primary transition-all duration-500 cursor-pointer"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {CardContent}
+              </a>
+            ) : (
+              <div
+                key={info.title}
+                className="group glass rounded-2xl p-6 text-center animate-fade-in-up hover:glow-primary transition-all duration-500"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {CardContent}
               </div>
-              <h3 className="font-display font-semibold text-lg mb-1">{info.title}</h3>
-              <p className="gradient-text font-medium mb-1">{info.value}</p>
-              <p className="text-muted-foreground text-sm">{info.description}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </Section>
 

@@ -165,6 +165,17 @@ const SvgIcon = ({ name, className = "", size = 48 }: SvgIconProps) => {
         </defs>
       </svg>
     ),
+    phone: (
+      <svg viewBox="0 0 64 64" fill="none" className={className} width={size} height={size}>
+        <path d="M14 10c-2 0-4 2-4 4v4c0 22 18 40 40 40h4c2 0 4-2 4-4v-8c0-2-2-4-4-4h-8c-2 0-4 2-4 4v2c-10-4-18-12-22-22h2c2 0 4-2 4-4v-8c0-2-2-4-4-4h-8z" stroke="url(#gradPhone)" strokeWidth="2" />
+        <defs>
+          <linearGradient id="gradPhone" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="hsl(var(--primary))" />
+            <stop offset="100%" stopColor="hsl(var(--secondary))" />
+          </linearGradient>
+        </defs>
+      </svg>
+    ),
   };
 
   return icons[name] || null;
