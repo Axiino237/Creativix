@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Section from "@/components/common/Section";
 import SvgIcon from "@/components/common/SvgIcon";
 
 const Contact = () => {
+  const formRef = useRef(null);
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -12,6 +14,7 @@ const Contact = () => {
     message: "",
   });
   const [status, setStatus] = useState("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -20,16 +23,22 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("loading");
-    
-    // Simulate API call
-    setTimeout(() => {
-      if (formState.email && formState.name && formState.message) {
-        setStatus("success");
-        setFormState({ name: "", email: "", subject: "", message: "" });
-      } else {
-        setStatus("error");
-      }
-    }, 1500);
+    setErrorMessage("");
+
+    try {
+      await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
+      );
+      setStatus("success");
+      setFormState({ name: "", email: "", subject: "", message: "" });
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setErrorMessage(err?.text || "Something went wrong. Please try again.");
+      setStatus("error");
+    }
   };
 
   const contactInfo = [
@@ -64,14 +73,14 @@ const Contact = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
             <span className="text-sm text-muted-foreground">Get in Touch</span>
           </div>
-          
+
           <h1 className="text-5xl md:text-7xl font-display font-bold leading-tight mb-6">
             Let's Start
             <span className="block gradient-text text-glow">Something Great</span>
           </h1>
-          
+
           <p className="text-xl text-muted-foreground max-w-2xl">
-            Have a project in mind? We'd love to hear about it. Send us a message 
+            Have a project in mind? We'd love to hear about it. Send us a message
             and let's create something amazing together.
           </p>
         </div>
@@ -124,7 +133,7 @@ const Contact = () => {
             <h2 className="text-3xl font-display font-bold mb-6">
               Send Us a <span className="gradient-text">Message</span>
             </h2>
-            
+
             {status === "success" ? (
               <div className="text-center py-12">
                 <div className="w-20 h-20 rounded-full gradient-bg flex items-center justify-center mx-auto mb-6">
@@ -139,7 +148,7 @@ const Contact = () => {
                 </Button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                 {/* Name Input */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Your Name</label>
@@ -219,7 +228,9 @@ const Contact = () => {
                 {status === "error" && (
                   <div className="flex items-center gap-2 text-destructive">
                     <AlertCircle className="w-5 h-5" />
-                    <span className="text-sm">Please fill in all required fields.</span>
+                    <span className="text-sm">
+                      {errorMessage || "Something went wrong. Please try again."}
+                    </span>
                   </div>
                 )}
 
@@ -261,37 +272,37 @@ const Contact = () => {
                         <stop offset="100%" stopColor="hsl(var(--secondary))" />
                       </linearGradient>
                     </defs>
-                    
+
                     {/* Main envelope */}
                     <path d="M50 120 L200 40 L350 120 L350 300 L50 300 Z" fill="none" stroke="url(#contactGrad)" strokeWidth="2" />
                     <path d="M50 120 L200 220 L350 120" stroke="url(#contactGrad)" strokeWidth="2" fill="none" />
                     <path d="M50 300 L150 200 M350 300 L250 200" stroke="hsl(var(--foreground) / 0.2)" strokeWidth="2" />
-                    
+
                     {/* Flying messages */}
                     <g className="animate-float" style={{ animationDelay: "0s" }}>
                       <rect x="80" y="180" width="60" height="40" rx="4" fill="hsl(var(--primary))" opacity="0.3" />
                       <line x1="90" y1="195" x2="130" y2="195" stroke="hsl(var(--foreground))" strokeWidth="2" opacity="0.5" />
                       <line x1="90" y1="205" x2="120" y2="205" stroke="hsl(var(--foreground))" strokeWidth="2" opacity="0.5" />
                     </g>
-                    
+
                     <g className="animate-float" style={{ animationDelay: "0.5s" }}>
                       <rect x="260" y="240" width="60" height="40" rx="4" fill="hsl(var(--secondary))" opacity="0.3" />
                       <line x1="270" y1="255" x2="310" y2="255" stroke="hsl(var(--foreground))" strokeWidth="2" opacity="0.5" />
                       <line x1="270" y1="265" x2="300" y2="265" stroke="hsl(var(--foreground))" strokeWidth="2" opacity="0.5" />
                     </g>
-                    
+
                     {/* Decorative dots */}
                     <circle cx="30" cy="80" r="8" fill="hsl(var(--primary))" opacity="0.5" className="animate-pulse" />
                     <circle cx="370" cy="180" r="6" fill="hsl(var(--secondary))" opacity="0.5" className="animate-pulse" style={{ animationDelay: "0.3s" }} />
                     <circle cx="180" cy="350" r="10" fill="hsl(var(--accent))" opacity="0.4" className="animate-pulse" style={{ animationDelay: "0.6s" }} />
-                    
+
                     {/* Connection lines */}
                     <path d="M30 80 Q 100 100 80 180" stroke="url(#contactGrad)" strokeWidth="1" fill="none" opacity="0.3" strokeDasharray="5 5" />
                     <path d="M370 180 Q 340 240 320 240" stroke="url(#contactGrad)" strokeWidth="1" fill="none" opacity="0.3" strokeDasharray="5 5" />
                   </svg>
                 </div>
               </div>
-              
+
               {/* Quick info */}
               <div className="mt-8 glass rounded-2xl p-6">
                 <h3 className="font-display font-semibold text-lg mb-4">Why Work With Us?</h3>
